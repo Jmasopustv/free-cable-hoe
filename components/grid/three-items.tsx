@@ -57,14 +57,16 @@ export async function ThreeItemGrid() {
       collection: 'winter-2k24', // Ensure this handle matches your Shopify collection handle
     });
 
-    // Handle cases where fewer than 3 products are available
+    // Ensure homepageItems is an array and contains at least three products
     if (!homepageItems || homepageItems.length < 3) {
       console.warn('Not enough products found in the collection');
       return null;
     }
 
-    // Get the first three products
-    const [firstProduct, secondProduct, thirdProduct] = homepageItems;
+    // Safely extract products with fallbacks for TypeScript
+    const firstProduct = homepageItems[0] as Product;
+    const secondProduct = homepageItems[1] as Product;
+    const thirdProduct = homepageItems[2] as Product;
 
     return (
       <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2 lg:max-h-[calc(100vh-200px)]">
