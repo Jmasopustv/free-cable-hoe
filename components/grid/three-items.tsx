@@ -17,7 +17,7 @@ function ThreeItemGridItem({
   const productTitle = item.title || 'Unknown Product';
   const price = item.priceRange?.maxVariantPrice?.amount || '0.00';
   const currencyCode = item.priceRange?.maxVariantPrice?.currencyCode || 'USD';
-  const productHandle = item.handle || '#';
+  const productHandle = item.handle || '';
 
   return (
     <div
