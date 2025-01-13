@@ -44,7 +44,7 @@ function ThreeItemGridItem({
 export async function ThreeItemGrid() {
   // Collections that start with `hidden-*` are hidden from the search page.
   const homepageItems = await getCollectionProducts({
-    collection: 'cable-mark-ii'
+    collection: 'winter-2k24'
   });
 
   if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
