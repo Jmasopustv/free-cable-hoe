@@ -57,22 +57,27 @@ export async function ThreeItemGrid() {
       collection: 'winter-2k24', // Ensure this handle matches your Shopify collection handle
     });
 
-    // Ensure homepageItems is an array and contains at least three products
-    if (!homepageItems || homepageItems.length < 3) {
-      console.warn('Not enough products found in the collection');
+    // Ensure homepageItems is an array and has at least 1 product
+    if (!homepageItems || homepageItems.length === 0) {
+      console.warn('No products found in the collection');
       return null;
     }
 
-    // Safely extract products with fallbacks for TypeScript
+    // Safely extract products
     const firstProduct = homepageItems[0] as Product;
-    const secondProduct = homepageItems[1] as Product;
-    const thirdProduct = homepageItems[2] as Product;
+    const secondProduct = homepageItems[1] as Product | undefined; // Second product might be undefined
+    const thirdProduct = homepageItems[2] as Product | undefined; // Third product might be undefined
 
     return (
       <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2 lg:max-h-[calc(100vh-200px)]">
+        {/* Render the first product */}
         <ThreeItemGridItem size="full" item={firstProduct} priority={true} />
-        <ThreeItemGridItem size="half" item={secondProduct} priority={true} />
-        <ThreeItemGridItem size="half" item={thirdProduct} />
+
+        {/* Render the second product if it exists */}
+        {secondProduct && <ThreeItemGridItem size="half" item={secondProduct} priority={true} />}
+
+        {/* Render the third product if it exists */}
+        {thirdProduct && <ThreeItemGridItem size="half" item={thirdProduct} />}
       </section>
     );
   } catch (error) {
