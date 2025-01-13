@@ -5,8 +5,18 @@ import { getCollections } from 'lib/shopify';
 import FilterList from './filter';
 
 async function CollectionList() {
-  const collections = await getCollections();
-  return <FilterList list={collections} title="Collections" />;
+  try {
+    const collections = await getCollections();
+
+    if (!collections || collections.length === 0) {
+      return <div>No collections available.</div>; // Handle empty state
+    }
+
+    return <FilterList list={collections} title="Collections" />;
+  } catch (error) {
+    console.error('Error fetching collections:', error);
+    return <div>Error loading collections. Please try again later.</div>;
+  }
 }
 
 const skeleton = 'mb-3 h-4 w-5/6 animate-pulse rounded';
