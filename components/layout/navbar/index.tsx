@@ -1,5 +1,4 @@
 import CartModal from 'components/cart/modal';
-import LogoSquare from 'components/logo-square';
 import { getMenu } from 'lib/shopify';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
@@ -7,30 +6,37 @@ import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
 import Search, { SearchSkeleton } from './search';
 
-const { SITE_NAME } = process.env;
-
 export async function Navbar() {
   const menu = await getMenu('next-js-frontend-header-menu');
 
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6">
+      {/* Mobile Menu */}
       <div className="block flex-none md:hidden">
         <Suspense fallback={null}>
           <MobileMenu menu={menu} />
         </Suspense>
       </div>
+
+      {/* Main Navbar */}
       <div className="flex w-full items-center">
-        <div className="flex w-full md:w-1/3">
-          <Link
-            href="/"
-            prefetch={true}
-            className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
-          >
-            <LogoSquare />
-            <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
-              {SITE_NAME}
-            </div>
-          </Link>
+        {/* Logo and Site Name */}
+        <div className="flex w-full md:w-1/3 items-center">
+          {/* Logo */}
+          <img
+            src="../../../images/flatDooberry.png" // Path to your logo image
+            alt="Site Logo"
+            className="h-8 w-auto mr-2"
+          />
+
+          {/* Custom Site Name Image */}
+          <img
+            src="../../../images/flatDooberry.png" // Path to your site name image
+            alt="Site Name"
+            className="h-6 w-auto hidden md:block" // Adjust visibility and size
+          />
+
+          {/* Navigation Menu */}
           {menu.length ? (
             <ul className="hidden gap-6 text-sm md:flex md:items-center">
               {menu.map((item: Menu) => (
@@ -47,11 +53,15 @@ export async function Navbar() {
             </ul>
           ) : null}
         </div>
+
+        {/* Search Bar */}
         <div className="hidden justify-center md:flex md:w-1/3">
           <Suspense fallback={<SearchSkeleton />}>
             <Search />
           </Suspense>
         </div>
+
+        {/* Cart Icon */}
         <div className="flex justify-end md:w-1/3">
           <CartModal />
         </div>
