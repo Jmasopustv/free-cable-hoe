@@ -1,4 +1,4 @@
-"use client"; // ✅ Ensure this runs in a Client Component
+"use client"; // ✅ Ensures this runs in a Client Component
 
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
