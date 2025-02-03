@@ -1,5 +1,5 @@
 import CartModal from 'components/cart/modal';
-import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { getMenu } from 'lib/shopify';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
@@ -7,11 +7,15 @@ import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
 import Search, { SearchSkeleton } from './search';
 
-export async function Navbar() {
+// ✅ Disable SSR for Framer Motion Components
+const MotionNav = dynamic(() => import('framer-motion').then((mod) => mod.motion.nav), { ssr: false });
+const MotionLi = dynamic(() => import('framer-motion').then((mod) => mod.motion.li), { ssr: false });
+
+export default async function Navbar() { // ✅ Changed to default export
   const menu = await getMenu('next-js-frontend-header-menu');
 
   return (
-    <motion.nav
+    <MotionNav
       className="fixed top-4 left-1/2 transform -translate-x-1/2 w-[90%] bg-white/10 backdrop-blur-xl shadow-neon rounded-lg p-4 flex justify-between items-center z-50"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -32,7 +36,7 @@ export async function Navbar() {
           />
           <ul className="hidden gap-6 text-md font-medium tracking-wide uppercase md:flex md:items-center">
             {menu.map((item: Menu) => (
-              <motion.li
+              <MotionLi
                 key={item.title}
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: 'spring', stiffness: 200 }}
@@ -43,7 +47,7 @@ export async function Navbar() {
                 >
                   {item.title}
                 </Link>
-              </motion.li>
+              </MotionLi>
             ))}
           </ul>
         </div>
@@ -58,6 +62,6 @@ export async function Navbar() {
           <CartModal />
         </div>
       </div>
-    </motion.nav>
+    </MotionNav>
   );
 }
