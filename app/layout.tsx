@@ -27,13 +27,10 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const cartId = (await cookies()).get('cartId')?.value;
-  const cart = getCart(cartId);
+  const cart = getCart(cartId); // ✅ Keep it as a promise
+
 
   return (
     <MotionDiv
