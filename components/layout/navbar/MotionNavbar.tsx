@@ -18,7 +18,7 @@ export default function MotionNavbar({ menu }: { menu: Menu[] }) {
       {/* Logo Section */}
       <div className="flex items-center gap-2">
         <motion.img
-          src="/images/Asset-3.svg" // Update with your logo path
+          src="/images/asset-3.svg" // Update with your logo path
           alt="Site Logo"
           className="h-12 w-auto"
           whileHover={{ scale: 1.1 }}
