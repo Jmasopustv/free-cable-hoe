@@ -1,17 +1,16 @@
-"use client"; // ✅ Client-side animations
+"use client"; // ✅ Required for client-side animations
 
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu } from "lib/shopify/types";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCart } from "components/cart/cart-context";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function MotionNavbar({ menu }: { menu: Menu[] }) {
   const pathname = usePathname();
   const { cart } = useCart();
-  const cartCount = cart?.items?.length || 0;
+  const cartCount = cart?.lines?.reduce((total, line) => total + line.quantity, 0) || 0; // ✅ Fixed Shopify cart count
   const [isMobileOpen, setMobileOpen] = useState(false);
 
   // ✅ Close menu when clicking outside
