@@ -21,13 +21,14 @@ export default function MotionNavbar({ menu }: { menu: Menu[] }) {
       {/* Logo Section */}
       <div className="flex items-center gap-2">
         <motion.img
-          src="/images/asset-doobery.svg" // ✅ Your new logo
+          src="/images/asset-dooberry.svg" // ✅ Your new logo
           alt="Site Logo"
           className="h-12 w-auto"
           whileHover={{ scale: 1.1 }}
           transition={{ type: "spring", stiffness: 200 }}
         />
-        <span className="text-white font-bold text-lg tracking-wide">Free Cable</span>
+        <span className="bg-gradient-to-r from-dooberry via-blast to-signatureYellow 
+               animate-gradientShift p-8 rounded-xl shadow-softNeon text-offWhite">Follow Your Dreams</span>
       </div>
 
       {/* Menu Links with Active Highlight */}
